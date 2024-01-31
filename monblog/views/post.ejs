@@ -4,7 +4,7 @@
 <body>
 <%- include('layouts/navbar'); -%>
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('<%= blogpost.image %>')">
+<header class="masthead" >
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
@@ -13,7 +13,8 @@
                     <h1><%= blogpost.title %></h1>
                     <h2 class="subheading"><%= blogpost.body %></h2>
                     <span class="meta">Posted
-on <%= blogpost.datePosted.toDateString() %></span>
+on <%= blogpost.datePosted.toLocaleDateString('fr-FR')
+                        %></span>
                 </div>
             </div>
         </div>
@@ -25,9 +26,7 @@ on <%= blogpost.datePosted.toDateString() %></span>
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <%= blogpost.body %>
-                <br>
-                <span class="meta"> image:
-<%= blogpost.image %></span>
+                <img src="<%= blogpost.image %>" class="img-fluid" alt="imagearticle blg" />
             </div>
         </div>
     </div>
