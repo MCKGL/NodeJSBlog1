@@ -6,6 +6,9 @@ var logger = require('morgan');
 const fileUpload = require('express-fileupload') ;
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const homeController = require('./controllers/home')
+const storePostController = require('./controllers/storePost')
+const getPostController = require('./controllers/getPost')
 const newPostController = require('./controllers/newPost');
 
 var app = express();
@@ -98,8 +101,17 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// app.use('/', indexRouter);
+// app.use('/users', usersRouter);
+
+app.get('/',(req,res) =>{
+    res.redirect('/index');
+})
+
+app.get('/index',homeController)
+app.get('/posts/new',newPostController)
+app.get('/post/:id',getPostController)
+app.post('/posts/store',storePostController)
 
 
 // app.get('/index',(req,res)=>{
@@ -115,22 +127,22 @@ app.use('/users', usersRouter);
 //   res.sendFile(path.resolve(__dirname,'public/post.ejs'))
 // });
 
-app.get('/index', async (req, res) => {
-    try {
-        const blogposts = await BlogPost.find({});
-        console.log(blogposts);
-        res.render('index', { blogposts });
-    } catch (error) {
-        console.error('Error fetching blog posts:', error);
-// Handle the error gracefully if needed
-        res.status(500).send('Oops! Something went wrong.');
-    }
-});
+// app.get('/index', async (req, res) => {
+//     try {
+//         const blogposts = await BlogPost.find({});
+//         console.log(blogposts);
+//         res.render('index', { blogposts });
+//     } catch (error) {
+//         console.error('Error fetching blog posts:', error);
+// // Handle the error gracefully if needed
+//         res.status(500).send('Oops! Something went wrong.');
+//     }
+// });
 
-app.get('/post/:id',async(req,res)=>{
-    const blogpost = await BlogPost.findById(req.params.id)
-    res.render('post',{blogpost})
-});
+// app.get('/post/:id',async(req,res)=>{
+//     const blogpost = await BlogPost.findById(req.params.id)
+//     res.render('post',{blogpost})
+// });
 
 // app.use('/users', usersRouter);
 // app.get('/about',(req,res) =>{
@@ -153,7 +165,8 @@ app.get('/post/:id',async(req,res)=>{
 // app.get('/posts/new',(req,res)=>{
 //   res.render('create')
 // });
-app.get('/posts/new',newPostController)
+
+
 
 //middleware pour ajout post
 // app.post('/posts/store',async (req,res) =>{
@@ -168,27 +181,27 @@ app.get('/posts/new',newPostController)
 //         });
 // });
 
-app.post('/posts/store', async (req, res) => {
-    try {
-        let image = req.files.image;
-// Move the uploaded image to the specified path
-        image.mv(path.resolve(__dirname, 'public/images', image.name), async (error)=> {
-            if (error) {
-                console.error('Error moving file:', error);
-                return res.status(500).send('Oops! Something went wrong.');
-            }
-// Create a new blog post with the image path
-            await BlogPost.create({
-                ...req.body,
-                image: '/images/' + image.name
-            });
-            res.redirect('/index');
-        });
-    } catch (error) {
-        console.error('Error creating blog post:', error);
-        res.status(500).send('Oops! Something went wrong.');
-    }
-});
+// app.post('/posts/store', async (req, res) => {
+//     try {
+//         let image = req.files.image;
+// // Move the uploaded image to the specified path
+//         image.mv(path.resolve(__dirname, 'public/images', image.name), async (error)=> {
+//             if (error) {
+//                 console.error('Error moving file:', error);
+//                 return res.status(500).send('Oops! Something went wrong.');
+//             }
+// // Create a new blog post with the image path
+//             await BlogPost.create({
+//                 ...req.body,
+//                 image: '/images/' + image.name
+//             });
+//             res.redirect('/index');
+//         });
+//     } catch (error) {
+//         console.error('Error creating blog post:', error);
+//         res.status(500).send('Oops! Something went wrong.');
+//     }
+// });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
