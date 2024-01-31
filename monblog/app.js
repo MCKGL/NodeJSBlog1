@@ -11,6 +11,8 @@ const storePostController = require('./controllers/storePost')
 const getPostController = require('./controllers/getPost')
 const newPostController = require('./controllers/newPost');
 const validateMiddleWare = require('./middleware/ValidationMiddleware')
+const newUserController = require('./controllers/newUser');
+const storeUserController = require('./controllers/storeUser');
 
 var app = express();
 var id = "65b9009d4e5f44787012e7ec";
@@ -43,6 +45,8 @@ app.get('/index',homeController)
 app.get('/posts/new',newPostController)
 app.get('/post/:id',getPostController)
 app.post('/posts/store',storePostController)
+app.get('/auth/register',newUserController)
+app.post('/users/register',storeUserController)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
