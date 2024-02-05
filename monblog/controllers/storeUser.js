@@ -6,7 +6,10 @@ module.exports = async (req, res) => {
         });
         res.redirect('/index');
     } catch (error) {
-        console.error('Error creating blog post:', error);
-        res.status(500).send('Oops! Something went wrong.');
+        const validationErrors = Object.keys(error.errors).map(key => error.errors[key].message)
+        req.session.validationErrors = validationErrors
+        res.redirect('/auth/register');
+        // console.error('Error creating blog post:', error);
+        // res.status(500).send('Oops! Something went wrong.');
     }
 }

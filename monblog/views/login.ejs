@@ -4,13 +4,13 @@
 <body>
 <%- include('layouts/navbar');-%>
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('../public/assets/img/contact-bg.jpg')">
+<header class="masthead" style="background-image: url('../public/assets/img/post-bg.jpg')">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="page-heading">
-                    <h1>Register a new account</h1>
+                    <h1> Authentification</h1>
                 </div>
             </div>
         </div>
@@ -20,16 +20,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <% if(errors != null && errors.length > 0) {%>
-                <ul class="list-group">
-                    <% for(var i = 0; i < errors.length; i++){ %>
-                        <li class="list-group-item list-group-item-danger">
-                            <%= errors[i] %>
-                        </li>
-                    <% } %>
-                </ul>
-            <% } %>
-            <form action="/users/register" method="POST" >
+            <form action="/users/login" method="POST" enctype="multipart/form-data">
                 <div class="control-group">
                     <div class="form-group floating-label-form-group controls">
                         <label>Username</label>
@@ -46,7 +37,7 @@
                 </div>
                 <br>
                 <div id="success"></div>
-                <button type="submit" class="btn btn-primary" >Register</button>
+                <button type="submit" class="btn btn-primary" >Login</button>
             </form>
         </div>
     </div>
