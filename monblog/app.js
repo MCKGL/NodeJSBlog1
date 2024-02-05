@@ -4,8 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const fileUpload = require('express-fileupload') ;
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 const homeController = require('./controllers/home')
 const storePostController = require('./controllers/storePost')
 const getPostController = require('./controllers/getPost')
@@ -19,6 +17,7 @@ const expressSession = require('express-session')
 const authMiddleware = require('./middleware/authMiddleware')
 const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware')
 const logoutController = require('./controllers/logout')
+const flash = require('connect-flash');
 
 var app = express();
 var id = "65b9009d4e5f44787012e7ec";
@@ -51,6 +50,7 @@ app.use(expressSession({
 //définition du sale
   secret : 'nodejs est top'
 }))
+app.use(flash());
 
 app.use("*",(req,res,next)=>{
   loggedIn = req.session.userId
