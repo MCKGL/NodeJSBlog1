@@ -11,7 +11,7 @@
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="post-heading">
                     <h1><%= blogpost.title %></h1>
-                    <h2 class="subheading"><%= blogpost.body %></h2>
+                    <h2 class="subheading"><%- blogpost.body %></h2>
                     <span class="meta">Posted by
                         <a href="#"><%= blogpost.userid.username %></a>
                         on <%= blogpost.datePosted.toLocaleDateString('fr-FR') %>
@@ -26,7 +26,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
-                <%= blogpost.body %>
+                <%- blogpost.body %>
                 <img src="<%= blogpost.image %>" class="img-fluid" alt="imagearticle blg" />
             </div>
         </div>

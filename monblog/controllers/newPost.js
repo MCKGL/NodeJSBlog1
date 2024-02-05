@@ -1,7 +1,8 @@
-module.exports=async(req,res)=>{
+module.exports = async(req,res) =>{
     if(req.session.userId){
-        res.render('create')
-    } else {
-        res.redirect('/auth/login')
+        return res.render('create',{
+            createPost: true
+        })
     }
-};
+    res.redirect('/auth/login')
+}
