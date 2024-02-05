@@ -12,9 +12,10 @@
                 <div class="post-heading">
                     <h1><%= blogpost.title %></h1>
                     <h2 class="subheading"><%= blogpost.body %></h2>
-                    <span class="meta">Posted
-on <%= blogpost.datePosted.toLocaleDateString('fr-FR')
-                        %></span>
+                    <span class="meta">Posted by
+                        <a href="#"><%= blogpost.userid.username %></a>
+                        on <%= blogpost.datePosted.toLocaleDateString('fr-FR') %>
+                    </span>
                 </div>
             </div>
         </div>
